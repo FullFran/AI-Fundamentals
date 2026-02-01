@@ -1,0 +1,56 @@
+---
+title: "Mecanismos de Atención"
+order: 1
+description: "Entendiendo la revolución de los Transformers"
+---
+
+# ⚡ Transformers
+
+La arquitectura que revolucionó el mundo. Desde **Attention Is All You Need**, el mecanismo de atención ha permitido escalar modelos a niveles nunca antes vistos.
+
+<div className="card bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border-cyan-500/30 mb-12">
+### ¿Por qué son especiales?
+A diferencia de las redes recurrentes (RNNs), los Transformers procesan toda la secuencia en paralelo y usan **atención** para que cada palabra "mire" a las demás sin importar la distancia espacial.
+</div>
+
+## 1. El Mecanismo de Atención
+
+La atención es básicamente un sistema de búsqueda: tienes una **Query** (lo que buscas), **Keys** (etiquetas de lo que hay) y **Values** (el contenido real).
+
+<math-block>
+  Attention(Q, K, V) = softmax(QKᵀ / √dₖ)V
+</math-block>
+
+<CodeBlock
+  title="attention_head.py"
+  language="python"
+  code={`import torch
+import torch.nn.functional as F
+
+def self_attention(q, k, v):
+    # d_k es la dimensión de las llaves
+    d_k = q.size(-1)
+    # Scores de similitud
+    scores = torch.matmul(q, k.transpose(-2, -1)) / (d_k**0.5)
+    # Pesos (probabilidades)
+    weights = F.softmax(scores, dim=-1)
+    # Salida contextualizada
+    return torch.matmul(weights, v)`}
+/>
+
+## 2. Decoder-Only (GPT)
+
+<CollapsibleSection title="El secreto de GPT" icon="🤫">
+Modelos como GPT solo usan el bloque "Decoder". Su secreto es el **Masked Self-Attention**, que impide que el modelo haga "trampa" mirando palabras que aún no han ocurrido en la secuencia temporal.
+</CollapsibleSection>
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
+   <div className="card border-white/10 p-6 mb-0">
+      <h4 className="mt-0 text-[var(--highlight)]">Multi-Head</h4>
+      <p className="text-sm">Tener múltiples cabezas permite al modelo aprender diferentes relaciones (gramática, contexto, sentimientos) en paralelo.</p>
+   </div>
+   <div className="card border-white/10 p-6 mb-0">
+      <h4 className="mt-0 text-[var(--highlight-secondary)]">Positional Encodings</h4>
+      <p className="text-sm">Como procesamos todo en paralelo, necesitamos inyectar información sobre el orden de las palabras mediante funciones senoidales.</p>
+   </div>
+</div>

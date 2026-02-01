@@ -1,0 +1,122 @@
+---
+title: "El Perceptrón y Backpropagation"
+order: 1
+description: "Construyendo la arquitectura fundamental del Deep Learning"
+---
+
+# 🧠 Redes Neuronales
+
+El puente entre la matemática y la inteligencia artificial. Aquí aprenderás a construir la arquitectura fundamental que permite a las máquinas aprender patrones complejos: el **Perceptrón Multicapa**.
+
+<div className="concept-box mb-12">
+### Filosofía "De Cero"
+No usaremos `torch.nn` hasta que hayamos implementado manualmente el paso hacia adelante (forward) y hayamos entendido la mecánica del gradiente.
+</div>
+
+## 1. La Neurona Artificial
+
+Inspirada en la biología, una neurona artificial es simplemente una función matemática que suma entradas ponderadas y decide si "disparar" o no mediante una activación.
+
+<Mermaid chart="
+graph LR
+    subgraph Entrada
+    A[x1]
+    B[x2]
+    C[x3]
+    end
+
+    subgraph CuerpoCelular
+    D[Sum]
+    E[Act]
+    end
+
+    F[y]
+
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    E --> F
+
+    style D fill:#00d4ff10,stroke:#00d4ff,stroke-width:2px
+    style E fill:#7c3aed10,stroke:#7c3aed,stroke-width:2px
+    style A fill:#1e293b,stroke:#94a3b8
+    style B fill:#1e293b,stroke:#94a3b8
+    style C fill:#1e293b,stroke:#94a3b8
+    style F fill:#10b98120,stroke:#10b981,stroke-width:2px
+    style Entrada fill:transparent,stroke:#334155
+    style CuerpoCelular fill:#0a0a1a,stroke:#334155
+" />
+
+<div className="card bg-slate-900/40 p-6 border-slate-700">
+   <h4 className="mt-0 text-sm uppercase tracking-widest text-[var(--text-secondary)]">La Ecuación Sagrada</h4>
+   <math-block>
+     y = s(w*x + b)
+   </math-block>
+   <div className="text-sm italic mb-0">Donde **w** son los pesos, **x** las entradas, **b** el sesgo y **s** la activación.</div>
+</div>
+
+<CodeBlock
+  title="neurona_manual.py"
+  language="python"
+  code={`import torch
+
+def simple_neuron(x, w, b):
+    # Suma ponderada + sesgo
+    z = torch.dot(x, w) + b
+    # Activación ReLU
+    return torch.max(torch.tensor(0.0), z)
+
+x = torch.tensor([1.2, 0.5, -1.0])
+w = torch.tensor([0.1, -0.8, 0.5])
+b = torch.tensor(0.1)
+
+print(f"Salida: {simple_neuron(x, w, b)}")`}
+/>
+
+## 2. Backpropagation
+
+<CollapsibleSection title="¿Cómo aprende realmente la red?" icon="🎓">
+No es magia, es **cálculo**. Backpropagation es el proceso de usar la regla de la cadena para calcular el gradiente de la función de pérdida respecto a cada peso. 
+</CollapsibleSection>
+
+<Mermaid chart="
+graph RL
+    L[Loss] --> P[Prediccion]
+    P --> H[Capas Ocultas]
+    H --> I[Entrada]
+    
+    subgraph Aprendizaje
+    direction RL
+    L -.-> P
+    P -.-> H
+    end
+
+    style L fill:#ef4444,stroke:#fff
+    style P fill:#1e293b,stroke:#94a3b8
+    style H fill:#1e293b,stroke:#94a3b8
+    style I fill:#1e293b,stroke:#94a3b8
+    style Aprendizaje fill:#1a1a3a,stroke:#00d4ff
+" />
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12 text-balance">
+   <div className="card border-l-4 border-l-[var(--highlight)] p-6 mb-0 bg-slate-900/20">
+      <h4 className="mt-0">1. Forward Pass</h4>
+      <div className="text-sm">Pasamos los datos y calculamos la predicción y el error (Loss).</div>
+   </div>
+   <div className="card border-l-4 border-l-[var(--highlight-secondary)] p-6 mb-0 bg-slate-900/20">
+      <h4 className="mt-0">2. Backward Pass</h4>
+      <div className="text-sm">Viajamos hacia atrás calculando derivadas para saber qué pesos son los culpables del error.</div>
+   </div>
+</div>
+
+<CodeBlock
+  title="entrenamiento_autograd.py"
+  language="python"
+  code={`# PyTorch hace el trabajo sucio con Autograd
+weights = torch.randn(3, requires_grad=True)
+loss = (output - target) ** 2
+
+loss.backward() # ¡Magia! Calcula todos los gradientes
+print(weights.grad) # Gradiente acumulado`}
+/>

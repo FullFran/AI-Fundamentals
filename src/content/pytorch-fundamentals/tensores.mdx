@@ -1,0 +1,87 @@
+---
+title: "Tensores y Operaciones"
+order: 1
+description: "La estructura de datos fundamental de PyTorch"
+---
+
+# 🔥 Tensores y Operaciones
+
+PyTorch es la herramienta predilecta de los investigadores de IA. Dominar los **tensores** y sus operaciones no es solo aprender una librería, es aprender a hablar el lenguaje del hardware de alto rendimiento.
+
+<concept-box>
+### ¿Qué es un Tensor?
+Un tensor es una generalización de vectores y matrices a dimensiones infinitas. Es la estructura de datos optimizada para cálculos masivos en paralelo.
+</concept-box>
+
+## 1. Creación de Tensores
+
+Existen múltiples formas de inicializar datos en PyTorch. La elección depende de si quieres datos aleatorios, constantes o cargados desde otras fuentes.
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+   <div className="card p-6 mb-0">
+      <h4 className="mt-0 text-[var(--highlight)] text-sm mb-4">Aleatorios (Randn)</h4>
+      <p className="text-xs mb-4 text-[var(--text-secondary)]">Toma valores de una distribución normal (media 0, std 1). Ideal para inicializar pesos.</p>
+      <code className="text-xs">torch.randn(3, 3)</code>
+   </div>
+   <div className="card p-6 mb-0">
+      <h4 className="mt-0 text-[var(--success)] text-sm mb-4">Secuenciales (Arange)</h4>
+      <p className="text-xs mb-4 text-[var(--text-secondary)]">Crea un rango de números similar al range nativo de Python.</p>
+      <code className="text-xs">torch.arange(0, 10, 1)</code>
+   </div>
+</div>
+
+<CodeBlock
+  title="creacion_basica.py"
+  language="python"
+  code={`import torch
+
+# Desde lista
+tensor = torch.tensor([1, 2, 3])
+
+# Aleatorios (3x3)
+random_tensor = torch.rand(3, 3)
+
+# Unos y Ceros
+ones = torch.ones(2, 2)
+zeros = torch.zeros(5, 5)`}
+/>
+
+## 2. Multiplicación Matricial
+
+<CollapsibleSection title="La Operación Más Importante" icon="⚡">
+Esta es **la operación** que consume el 99% de la potencia de una GPU durante el entrenamiento. En PyTorch usamos el operador `@` o `torch.matmul()`.
+</CollapsibleSection>
+
+Para realizar la multiplicación matricial, recuerda la regla de oro: las dimensiones internas deben coincidir.
+
+<div className="math-block text-2xl py-8">
+  (m × n) @ (n × p) = (m × p)
+</div>
+
+<CodeBlock
+  title="operaciones_matmul.py"
+  language="python"
+  code={`A = torch.randn(3, 2)
+B = torch.randn(2, 4)
+
+# Multiplicación
+C = A @ B  # Shape: (3, 4)
+
+# Error común: dimensiones incompatibles
+# C = B @ A  # RuntimeError!`}
+/>
+
+## 3. Gestión de Dispositivos (GPU)
+
+La gran ventaja de PyTorch es mover cálculos a la GPU con una sola línea.
+
+<CodeBlock
+    title="device_agnostic.py"
+    language="python"
+    code={`# Código agnóstico al dispositivo
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"Entrenando en: {device}")
+
+# Mover un tensor
+x = torch.randn(3, 3).to(device)`}
+/>

@@ -1,0 +1,51 @@
+---
+title: "Convoluciones y Pooling"
+order: 1
+description: "Cómo las máquinas aprenden a ver el mundo"
+---
+
+# 👁️ Visión Computacional
+
+¿Cómo ven las máquinas? A través de la **convolución**. Aquí aprenderás cómo las CNNs detectan desde bordes simples hasta caras complejas.
+
+## 1. El Tensor de Imagen (NCHW)
+
+<div className="concept-box mb-8">
+En Deep Learning, una imagen no es solo píxeles. Es un tensor de 4 dimensiones: **Batch, Channels, Height, Width**.
+</div>
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+  {['Batch (N)', 'Canales (C)', 'Alto (H)', 'Ancho (W)'].map((dim, i) => (
+    <div key={i} className="card p-4 mb-0 text-center border-white/5 bg-white/5">
+      <span className="font-mono text-[var(--highlight)]">{dim}</span>
+    </div>
+  ))}
+</div>
+
+## 2. La Operación de Convolución
+
+Un **Kernel** (o filtro) se desliza por la imagen calculando productos internos. Esto permite la "invarianza espacial": la red puede detectar un objeto sin importar su posición en la imagen.
+
+<CodeBlock
+    title="capa_conv.py"
+    language="python"
+    code={`import torch.nn as nn
+
+# Capa de visión estándar
+conv = nn.Conv2d(in_channels=3, # RGB
+                 out_channels=16, # Filtros a aprender
+                 kernel_size=3, # Ventana 3x3
+                 stride=1,
+                 padding=1)`}
+/>
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+   <div className="card p-6 mb-0">
+      <h4 className="mt-0 text-[var(--highlight)]">MaxPooling</h4>
+      <p className="text-sm">Reduce el tamaño espacial de la imagen, quedándose solo con la característica más "brillante" o importante de cada región.</p>
+   </div>
+   <div className="card p-6 mb-0">
+      <h4 className="mt-0 text-[var(--success)]">Pattern Detection</h4>
+      <p className="text-sm">Las capas iniciales detectan bordes, las intermedias formas y las finales objetos completos.</p>
+   </div>
+</div>

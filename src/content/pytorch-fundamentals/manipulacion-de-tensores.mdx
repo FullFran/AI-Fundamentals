@@ -1,0 +1,62 @@
+---
+title: "Manipulación de Tensores"
+order: 2
+description: "Reshape, Indexing y Slicing avanzado"
+---
+
+# 🛠️ Manipulación de Tensores
+
+En investigación, el 80% del tiempo estarás ajustando dimensiones de tensores para que las capas encajen entre sí.
+
+## 1. Reshape y View
+
+Cambiar la forma de un tensor sin mover los datos subyacentes en memoria.
+
+<CodeBlock
+  title="reshape_view.py"
+  language="python"
+  code={`import torch
+
+t = torch.arange(1, 13) # [1, 2, ..., 12]
+reshaped = t.reshape(3, 4)
+viewed = t.view(2, 6)
+
+# Usar -1 para inferencia automática
+auto = t.reshape(2, -1) # Calcula automáticamente el 6
+print(auto.shape)`}
+/>
+
+## 2. Indexing y Slicing
+
+Acceder a porciones específicas de tus datos.
+
+<CodeBlock
+  title="indexing.py"
+  language="python"
+  code={`t = torch.randn(4, 6)
+
+# Primeras 2 filas, todas las columnas
+sub = t[:2, :]
+
+# Última columna de todas las filas
+last_col = t[:, -1]
+
+# Boolean indexing (Máscaras)
+positive_only = t[t > 0]`}
+/>
+
+## 3. Squeeze y Unsqueeze
+
+Eliminar o añadir dimensiones de tamaño 1. Vital para que las operaciones de batch funcionen.
+
+<CodeBlock
+  title="squeeze.py"
+  language="python"
+  code={`x = torch.randn(3, 4) # (3, 4)
+
+# Añadir dimensión para batch
+x_batch = x.unsqueeze(0) # (1, 3, 4)
+
+# Eliminar dimensiones unitarias
+x_flat = x_batch.squeeze() # (3, 4)`}
+/>

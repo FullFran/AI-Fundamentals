@@ -1,0 +1,92 @@
+---
+title: "El Modelo de Ising y el Paisaje de Energía"
+order: 6
+description: "De la física de espines al Hamiltoniano de las Redes de Hopfield"
+---
+
+# ⚛️ El Modelo de Ising y el Paisaje de Energía
+
+Para entender por qué una red neuronal puede "recordar" algo, primero tenemos que mirar cómo se comporta la materia. En física, el **Modelo de Ising** nos enseña cómo pequeñas unidades individuales (espines) pueden ponerse de acuerdo para crear un estado colectivo.
+
+Es exactamente lo mismo que ocurre en una red neuronal: las neuronas son como espines que buscan un estado de equilibrio.
+
+## 1. El Modelo de Ising: El Orden nace del Caos
+
+Imagina una cuadrícula de átomos. Cada átomo tiene un "espín" **s** que puede apuntar hacia arriba (+1) o hacia abajo (-1). 
+- Si dos átomos vecinos apuntan al mismo lado, la energía del sistema baja (estabilidad).
+- Si apuntan a lados opuestos, la energía sube (inestabilidad).
+
+<math-block>
+  E = - Sum( J_ij * s_i * s_j )
+</math-block>
+
+Donde **J_ij** es la fuerza de la relación entre el átomo **i** y el **j**. Ya te digo yo que esta fórmula es el tatarabuelo de la función de coste de cualquier red moderna.
+
+## 2. La Conexión con Hopfield
+
+John Hopfield se dio cuenta de algo brillante: si tratamos a las neuronas como espines de Ising, podemos "programar" las conexiones **J_ij** (que nosotros llamamos pesos **W**) para que los estados que queremos memorizar sean los estados de **mínima energía**.
+
+<concept-box>
+### El Hamiltoniano de Energía
+En una Red de Hopfield, definimos la energía total del sistema como:
+<math-block>
+  H = -0.5 * Sum( w_ij * s_i * s_j )
+</math-block>
+Recuperar un recuerdo es simplemente dejar que el sistema evolucione hacia su estado de mínima energía (el fondo del valle).
+</concept-box>
+
+<Mermaid chart="
+graph TD
+    A[Estado Inicial Ruidoso] -->|Minimizacion de Energia| B(Valle de Potencial)
+    B --> C[Recuerdo Recuperado]
+    
+    subgraph Paisaje de Energia
+    P1[Cima: Alta Energia]
+    P2[Valle: Memoria A]
+    P3[Valle: Memoria B]
+    end
+    
+    style B fill:#7c3aed20,stroke:#7c3aed
+    style Paisaje de Energia fill:rgba(0,212,255,0.05),stroke:#00d4ff
+" />
+
+## 3. Atractores y Estabilidad
+
+En física, un **atractor** es un estado hacia el cual el sistema tiende a evolucionar. 
+- Los recuerdos grabados en la matriz de pesos son atractores.
+- Si le das a la red un dato incompleto, el sistema "caerá" en el atractor más cercano.
+
+Es así de fácil: aprender es **moldear el paisaje**. Cuando entrenas un modelo, estás cavando pozos en el mapa de energía para que los datos caigan donde tú quieres.
+
+<div className="card bg-slate-900/50 border-[var(--highlight-secondary)]/20 p-6 text-balance">
+  <h4 className="text-[var(--highlight-secondary)] mt-0 mb-4">💡 Perspectiva de Investigador</h4>
+  <div className="text-sm m-0 leading-relaxed text-pretty">
+    <div>
+    Este proceso de minimización de energía es lo que permite que las redes neuronales sean robustas al ruido. No importa si a la imagen le faltan píxeles; mientras el estado inicial esté dentro de la "cuenca de atracción" del recuerdo, la física se encargará de hacer el resto.
+    </div>
+  </div>
+</div>
+
+<CodeBlock
+  title="energia_hopfield.py"
+  language="python"
+  code={`import torch
+
+def calcular_energia(estado, pesos):
+    # La energia es E = -0.5 * s.T * W * s
+    # Usamos producto matricial para calcularlo de golpe
+    energia = -0.5 * torch.dot(estado, pesos @ estado)
+    return energia.item()
+
+# Definimos una red con 3 neuronas
+W = torch.tensor([[0.0, 1.0, -1.0],
+                  [1.0, 0.0, 1.0],
+                  [-1.0, 1.0, 0.0]])
+
+estado_valido = torch.tensor([1.0, 1.0, -1.0])
+estado_ruidoso = torch.tensor([1.0, -1.0, -1.0])
+
+print(f"Energia del recuerdo: {calcular_energia(estado_valido, W)}")
+print(f"Energia con ruido:    {calcular_energia(estado_ruidoso, W)}")
+# La energia del recuerdo siempre sera menor!`}
+/>

@@ -1,0 +1,79 @@
+---
+title: "Self-Attention y GPT"
+order: 2
+description: "Construyendo la arquitectura de los LLMs modernos"
+---
+
+# 🔩 Self-Attention y GPT
+
+El secreto de los Transformers es que pueden procesar toda la secuencia a la vez sin perder la relación entre palabras lejanas.
+
+## 1. Self-Attention Head
+
+Una "cabeza" de atención transforma la entrada en Query, Key y Value para entender el contexto.
+
+<CodeBlock
+  title="self_attention.py"
+  language="python"
+  code={`import torch.nn as nn
+import torch.nn.functional as F
+
+class SelfAttentionHead(nn.Module):
+    def __init__(self, d_model, d_head):
+        super().__init__()
+        self.w_q = nn.Linear(d_model, d_head, bias=False)
+        self.w_k = nn.Linear(d_model, d_head, bias=False)
+        self.w_v = nn.Linear(d_model, d_head, bias=False)
+        
+    def forward(self, x):
+        # x: (batch, seq_len, d_model)
+        q = self.w_q(x)
+        k = self.w_k(x)
+        v = self.w_v(x)
+        
+        # Similitud (Attention Matrix)
+        scores = (q @ k.transpose(-2, -1)) / (q.size(-1)**0.5)
+        weights = F.softmax(scores, dim=-1)
+        
+        return weights @ v`}
+/>
+
+## 2. Multi-Head Attention
+
+Combinar múltiples cabezas para que el modelo aprenda diferentes tipos de relaciones simultáneamente.
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+  {['Sintaxis', 'Semántica', 'Entidades'].map((rel, i) => (
+    <div key={i} className="card p-4 mb-0 text-center border-[var(--highlight)]/30">
+      <span className="text-xs font-bold uppercase tracking-widest text-[var(--highlight)]">Cabeza {i+1}</span>
+      <p className="m-0 text-sm">{rel}</p>
+    </div>
+  ))}
+</div>
+
+## 3. Bloque Transformer (Estilo GPT)
+
+Un bloque de GPT combina Multi-Head Attention con una red Feed-Forward y conexiones residuales.
+
+<CodeBlock
+  title="gpt_block.py"
+  language="python"
+  code={`class TransformerBlock(nn.Module):
+    def __init__(self, d_model, n_heads):
+        super().__init__()
+        self.attention = nn.MultiheadAttention(d_model, n_heads)
+        self.norm1 = nn.LayerNorm(d_model)
+        self.ffn = nn.Sequential(
+            nn.Linear(d_model, 4 * d_model),
+            nn.ReLU(),
+            nn.Linear(4 * d_model, d_model)
+        )
+        self.norm2 = nn.LayerNorm(d_model)
+
+    def forward(self, x):
+        # x = x + Attn(Norm(x))
+        x = x + self.attention(self.norm1(x), self.norm1(x), self.norm1(x))[0]
+        # x = x + FFN(Norm(x))
+        x = x + self.ffn(self.norm2(x))
+        return x`}
+/>

@@ -1,0 +1,86 @@
+---
+title: "Álgebra Lineal: Geometría y Operadores"
+order: 3
+description: "Vectores, transformaciones y el esqueleto geométrico del Deep Learning"
+---
+
+# 📐 Álgebra Lineal: El Espacio de la Inteligencia
+
+Escúchame bien: el álgebra lineal **no se trata de tablas de números**. Eso es para las máquinas. Para nosotros, se trata de **GEOMETRÍA**. En IA, los datos no son puntos perdidos; son flechas en un espacio gigante, y las redes neuronales son los "operadores" que deforman ese espacio para encontrar la verdad.
+
+<concept-box>
+### El Vector como Flecha
+Un vector representa un **estado de información**. Un "embedding" de una palabra es un vector en un espacio donde la cercanía geométrica significa que las cosas se parecen. Si dos flechas apuntan al mismo lado, están hablando de lo mismo.
+</concept-box>
+
+## 1. El Operador: Una Matriz que Deforma
+Una matriz **W** en una red neuronal es un **operador lineal**. No pienses en "multiplicar", piensa en "transformar". 
+
+Cuando tus datos pasan por una capa, el espacio hace tres cosas:
+1. **Rota:** Alinea la información con nuevas direcciones de interés.
+2. **Escala:** Le da volumen a lo importante y achica lo que no sirve.
+3. **Proyecta:** Aplasta dimensiones para quedarse con la esencia. Es así de simple.
+
+<Mermaid chart="
+graph LR
+    A[Espacio V] --> B[Operador W]
+    B --> C[Espacio W]
+    
+    subgraph Deformacion
+    direction TB
+    D[Rotacion]
+    E[Escalado]
+    F[Proyeccion]
+    end
+    
+    style A fill:#1e293b,stroke:#00d4ff
+    style B fill:#00d4ff10,stroke:#00d4ff
+    style C fill:#1e293b,stroke:#7c3aed
+    style Deformacion fill:#1a1a3a,stroke:#334155
+" />
+
+## 2. El Producto Escalar: Medir la Alineación
+El producto escalar mide cuánto se "alinean" dos flechas. Es el corazón de los Transformers.
+
+<math-block>
+  a · b = |a| |b| cos(theta)
+</math-block>
+
+### Intuición de la Atención
+En los Transformers, tienes una **Query (Q)** y una **Key (K)**. La red proyecta una sobre la otra. 
+- Si están alineadas (0 grados), la red "presta atención".
+- Si son ortogonales (90 grados), a la red no le importa. 
+
+Es como un filtro de polarización: solo pasa la luz que está alineada. ¡Es pura física!
+
+## 3. Autovectores: El Esqueleto del Espacio
+Casi todas las flechas cambian de dirección cuando aplicas una matriz, pero hay unas flechas "sagradas": los **Autovectores**. Cuando las transformas, mantienen su dirección, solo cambian de tamaño (según su **Autovalor**).
+
+<div className="card bg-slate-900/50 border-[var(--highlight)]/20 p-6 text-balance">
+  <h4 className="text-[var(--highlight)] mt-0 mb-4">¿Por qué te importa esto?</h4>
+  <div className="text-sm m-0 leading-relaxed text-pretty">
+    Los autovectores son las **características fundamentales** que la red está detectando. Si una red clasifica fotos de gatos, sus autovectores principales representan las formas básicas (orejas, bigotes, ojos). El autovalor te dice qué tan importante es esa característica. 
+  </div>
+</div>
+
+## 4. SVD: Encontrar la Señal en el Ruido
+La **Descomposición en Valores Singulares (SVD)** permite romper cualquier matriz en sus componentes esenciales. Es lo que nos permite comprimir modelos gigantes. Si tiramos los componentes con valores singulares chiquitos, el modelo sigue funcionando pero pesa la mitad. ¡Es magia geométrica!
+
+<CodeBlock
+  title="deformacion_espacial.py"
+  language="python"
+  code={`import numpy as np
+
+# Nuestro vector (una flecha apuntando a la derecha)
+x = np.array([1, 0]) 
+
+# Operador que rota 90 grados y duplica el tamaño
+W = np.array([[0, -2],
+              [2,  0]])
+
+# Aplicamos la transformación
+x_transformed = W @ x
+
+print(f"Original: {x}")
+print(f"Transformado: {x_transformed}") # Flecha apuntando arriba con tamaño 2`}
+/>
