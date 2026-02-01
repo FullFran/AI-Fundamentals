@@ -16,7 +16,7 @@ export default function VisionComputacionalIndex() {
           <h1 className="text-5xl font-black mb-0">Visión Computacional</h1>
         </div>
         <p className="text-xl text-[var(--text-secondary)] max-w-3xl leading-relaxed text-pretty">
-          Domina las CNNs y las técnicas que permiten a los modelos interpretar imágenes y videos.
+          De las CNNs a los embeddings visuales: la puerta de entrada a los modelos visión-lenguaje.
         </p>
       </header>
 

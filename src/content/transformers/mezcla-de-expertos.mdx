@@ -1,0 +1,52 @@
+---
+title: "Mezcla de Expertos (MoE)"
+order: 3
+description: "Escalar modelos sin multiplicar el coste en cada paso"
+---
+
+# 🧩 Mezcla de Expertos (MoE)
+
+Aquí es donde el escalado se vuelve inteligente. En vez de usar **todas** las neuronas para **todas** las entradas, MoE decide **quién trabaja** en cada token. Es como un hospital: no llamas a todos los médicos a la vez, llamas al especialista adecuado.
+
+## 1. La idea base
+Un MoE tiene dos partes:
+* **Expertos:** pequeños modelos especializados.
+* **Router (Gate):** decide qué expertos reciben cada entrada.
+
+Resultado: más capacidad total, pero coste por token controlado.
+
+## 2. ¿Qué hace el Router?
+El router calcula una puntuación por experto y activa solo unos pocos (top-k). Esto introduce **sparsity**: solo una parte del modelo trabaja en cada paso.
+
+<CodeBlock
+  title="router_moe.py"
+  language="python"
+  code={`import torch
+import torch.nn as nn
+
+class MoERouter(nn.Module):
+    def __init__(self, d_model, n_experts, k=2):
+        super().__init__()
+        self.gate = nn.Linear(d_model, n_experts)
+        self.k = k
+
+    def forward(self, x):
+        # x: (batch, seq, d_model)
+        scores = self.gate(x)
+        topk = torch.topk(scores, self.k, dim=-1)
+        return topk.indices, topk.values
+`}
+/>
+
+## 3. Ventajas y costes reales
+* **Ventaja:** escalas parametros sin escalar el coste por token.
+* **Coste oculto:** balancear carga entre expertos y evitar que uno lo haga todo.
+
+<div className="deep-explanation">
+**Física mental:** es como repartir energia entre canales paralelos para no saturar uno solo. Si un experto se calienta demasiado, el sistema pierde estabilidad.
+</div>
+
+## 4. Referencias clave
+* **Shazeer et al.** *Outrageously Large Neural Networks* (2017).
+* **Lepikhin et al.** *GShard* (2020).
+* **Fedus et al.** *Switch Transformers* (2021).

@@ -1,0 +1,47 @@
+---
+title: "Visión-Lenguaje: De CNN a Embeddings"
+order: 2
+description: "El puente clasico hacia los VLMs: convertir imagenes en lenguaje"
+---
+
+# 🔗 Visión-Lenguaje (VLM)
+
+Si te lo digo directo: un VLM no es magia. Es una **traducción**. Tomas una imagen, la conviertes en un embedding, y lo alineas con el espacio del lenguaje. Esa es la jugada.
+
+## 1. El pipeline clasico
+1. **Encoder visual (CNN o ViT):** convierte la imagen en un vector.
+2. **Proyeccion a espacio comun:** adapta dimensiones y escala.
+3. **Encoder de texto:** convierte la frase en otro vector.
+4. **Alineacion:** haces que imagen y texto "se encuentren" en el mismo espacio.
+
+<div className="concept-box">
+**Idea clave:** si imagen y texto viven en el mismo espacio, puedes buscar por similitud. Eso es CLIP en una frase.
+</div>
+
+## 2. ¿Por que embeddings?
+Porque un embedding es un resumen geometrico. Si dos imagenes dicen lo mismo, sus vectores apuntan parecido. Igual con dos frases.
+
+<CodeBlock
+  title="alineacion_basica.py"
+  language="python"
+  code={`import torch
+import torch.nn.functional as F
+
+# v_img y v_txt son embeddings (ya normalizados)
+similitud = torch.dot(v_img, v_txt)
+
+# En CLIP, maximizas esta similitud para pares correctos
+`}
+/>
+
+## 3. Del CLIP a los VLM modernos
+CLIP te enseña a alinear imagen y texto con contraste. Los VLMs modernos van mas alla: usan esos embeddings como entrada para modelos generativos que "explican" lo que ven.
+
+<div className="deep-explanation">
+**Intuicion fisica:** piensa en dos sistemas acoplados que buscan el mismo minimo de energia. La alineacion es bajar energia conjunta hasta que coinciden.
+</div>
+
+## 4. Referencias clave
+* **Radford et al.** *CLIP* (2021).
+* **Jia et al.** *ALIGN* (2021).
+* **Li et al.** *BLIP-2* (2023).

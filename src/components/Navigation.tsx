@@ -7,11 +7,12 @@ import { Icons } from "@/components/Icons";
 
 const navItems = [
   { href: "/", label: "Inicio" },
-  { href: "/fundamentos-matematicos", label: "Matemáticas" },
+  { href: "/fundamentos-matematicos", label: "Fundamentos" },
   { href: "/pytorch-fundamentals", label: "PyTorch" },
-  { href: "/redes-neuronales", label: "Redes Neuronales" },
+  { href: "/redes-neuronales", label: "Redes" },
+  { href: "/vision-computacional", label: "Visión" },
   { href: "/transformers", label: "Transformers" },
-  { href: "/referencias", label: "Referencias" },
+  { href: "/referencias", label: "Bibliografía" },
 ];
 
 export default function Navigation() {

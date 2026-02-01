@@ -49,3 +49,10 @@ conv = nn.Conv2d(in_channels=3, # RGB
       <p className="text-sm">Las capas iniciales detectan bordes, las intermedias formas y las finales objetos completos.</p>
    </div>
 </div>
+
+## 3. Del Pixel al Embedding
+Cuando una CNN termina su trabajo, no te da una "respuesta" humana. Te da un **vector**: un embedding visual que resume la imagen. Ese vector es la moneda con la que luego negociaremos con texto.
+
+<div className="concept-box">
+**Puente clave:** primero aprendes a ver (CNN), luego aprendes a hablar de lo que ves (embeddings + lenguaje).
+</div>

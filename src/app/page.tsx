@@ -29,18 +29,18 @@ const modules = [
   {
     number: 4,
     title: "Visión Computacional",
-    description: "Detecta patrones en imágenes con CNNs (Redes Neuronales Convolucionales). Arquitecturas como TinyVGG.",
+    description: "De CNNs a embeddings visuales: la base para unir visión y lenguaje.",
     href: "/vision-computacional",
     icon: <Icons.Eye className="w-8 h-8" />,
-    topics: ["Imágenes NCHW", "Convolución (Conv2d)", "Pooling (MaxPool)", "Arquitectura TinyVGG"]
+    topics: ["Convoluciones", "Pooling", "Embeddings visuales", "VLM"]
   },
   {
     number: 5,
     title: "Transformers",
-    description: "La arquitectura que revolucionó la IA. Desde el mecanismo de atención hasta GPT.",
+    description: "La arquitectura que revolucionó la IA: atención, GPT y mezcla de expertos.",
     href: "/transformers",
     icon: <Icons.Zap className="w-8 h-8" />,
-    topics: ["Mecanismo de atención", "Self-Attention", "Multi-Head Attention", "Decoder-Only Transformer"]
+    topics: ["Atención", "GPT", "MoE", "Escalado"]
   }
 ];
 

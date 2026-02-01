@@ -16,7 +16,7 @@ export default function TransformersIndex() {
           <h1 className="text-5xl font-black mb-0">Transformers</h1>
         </div>
         <p className="text-xl text-[var(--text-secondary)] max-w-3xl leading-relaxed text-pretty">
-          La arquitectura que revolucionó el NLP y el Procesamiento de Secuencias.
+          De la atención a GPT y luego MoE: el camino real para entender los LLMs modernos.
         </p>
       </header>
 

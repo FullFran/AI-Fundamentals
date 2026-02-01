@@ -6,7 +6,7 @@ description: "Construyendo la arquitectura de los LLMs modernos"
 
 # 🔩 Self-Attention y GPT
 
-El secreto de los Transformers es que pueden procesar toda la secuencia a la vez sin perder la relación entre palabras lejanas.
+Ahora damos el salto: de la atención a GPT. Si el Transformer completo es una orquesta, GPT se queda con la sección más potente: **el Decoder**. Y con eso le basta para modelar lenguaje.
 
 ## 1. Self-Attention Head
 
@@ -77,3 +77,14 @@ Un bloque de GPT combina Multi-Head Attention con una red Feed-Forward y conexio
         x = x + self.ffn(self.norm2(x))
         return x`}
 />
+
+## 4. ¿Por qué Decoder-Only?
+Porque para predecir la siguiente palabra solo necesitas contexto pasado. El **Masked Self-Attention** obliga al modelo a no mirar al futuro, y eso lo convierte en un generador puro: aprende a continuar, no a rellenar.
+
+<div className="concept-box">
+**Resumen en una frase:** GPT es un Transformer que aprendió a escribir sin hacer trampa.
+</div>
+
+## 5. Referencias Clave
+*   **Vaswani et al.** *Attention Is All You Need* (2017).
+*   **Radford et al.** *Language Models are Unsupervised Multitask Learners* (GPT-2, 2019).

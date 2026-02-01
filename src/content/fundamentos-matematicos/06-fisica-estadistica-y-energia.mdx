@@ -27,7 +27,12 @@ $$ H = -\frac{1}{2} \sum_{i,j} w_{ij} s_i s_j $$
 Recuperar un recuerdo es simplemente dejar que las neuronas "se relajen" y encuentren el estado de mínima energía. Es como ver una canica rodar hasta el fondo de un cuenco.
 </div>
 
-## 3. Atractores, Softmax y Temperatura
+## 3. El Salto a la Atención Moderna
+Aquí viene el puente que faltaba. En 2020 se publicó **"Hopfield Networks is All You Need"**, y mostró algo precioso: la atención moderna puede verse como una **Hopfield continua**. En lugar de memorias discretas, tienes **patrones continuos** en un espacio de embeddings. El mecanismo de atención no es magia: es recuperación de memoria, pero en alta dimensión y de forma diferenciable.
+
+¿La idea clave? La atención calcula similitudes (Q·K), usa softmax para convertirlas en pesos y recupera un vector como combinación de valores. Eso es exactamente lo que hace una Hopfield: buscar el atractor más compatible con la señal de entrada, solo que aquí lo hacemos en un solo paso y de forma paralela.
+
+## 4. Atractores, Softmax y Temperatura
 En física, un **atractor** es ese punto del valle que "atrae" todo lo que cae cerca. 
 *   ¿Y la famosa función **Softmax**? No es más que una distribución de Boltzmann disfrazada:
 $$P(x) = \frac{1}{Z} e^{-E(x)/T}$$
@@ -39,9 +44,10 @@ Aquí entra en juego la **Temperatura ($T$)**. Si la temperatura es alta, hay mu
 </div>
 
 
-## 4. Referencias Académicas
+## 5. Referencias Académicas
 *   **Marc Mézard & Andrea Montanari**, *Information, Physics, and Computation*. La biblia de esta conexión.
 *   **John Hopfield**, *Neural networks and physical systems with emergent collective computational abilities* (1982).
+*   **Ramsauer et al.**, *Hopfield Networks is All You Need* (2020).
 *   **MIT OCW 8.044**, *Statistical Physics I*.
 {/* Apuntes internos: llm-ref/clases/semana_3_anexo_fisica_atencion.md */}
 
