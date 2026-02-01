@@ -1,6 +1,17 @@
+import { Inter, Fira_Code } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import type { Metadata } from "next";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const firaCode = Fira_Code({
+  subsets: ["latin"],
+  variable: "--font-fira-code",
+});
 
 export const metadata: Metadata = {
   title: "Curso de Investigador en IA de Élite",
@@ -14,21 +25,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-      </head>
-      <body>
+    <html lang="es" className={`${inter.variable} ${firaCode.variable}`}>
+      <body className="antialiased min-h-screen selection:bg-[var(--highlight)]/30 selection:text-[var(--highlight)]">
         <Navigation />
-        <main style={{ paddingTop: '70px' }}>
+        <main className="pt-16 min-h-[calc(100vh-160px)] outline-none" id="main-content" tabIndex={-1}>
           {children}
         </main>
-        <footer className="footer">
-          <p>🧠 Curso de Investigador en IA de Élite</p>
-          <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>
-            Basado en el repositorio <a href="https://github.com" target="_blank" rel="noopener noreferrer">Become Elite AI Researcher</a>
+        <footer className="footer py-12 px-6 border-t border-[var(--border)] text-center">
+          <p className="font-bold text-lg mb-2">🧠 Curso de Investigador en IA de Élite</p>
+          <p className="text-sm text-[var(--text-secondary)]">
+            Basado en el repositorio <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-[var(--highlight)] hover:underline">Become Elite AI Researcher</a>
           </p>
         </footer>
       </body>
