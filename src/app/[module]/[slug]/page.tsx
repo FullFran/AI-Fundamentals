@@ -4,6 +4,8 @@ import { mdxComponents } from "@/components/mdx-components";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Icons } from "@/components/Icons";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 interface PageProps {
   params: Promise<{
@@ -89,9 +91,19 @@ export default async function WikiPage({ params }: PageProps) {
                 )}
               </header>
 
-              <div className="mdx-content">
-                <MDXRemote source={content} components={mdxComponents} />
-              </div>
+          <div className="mdx-content">
+            <MDXRemote 
+              source={content} 
+              components={mdxComponents} 
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkMath],
+                  rehypePlugins: [rehypeKatex],
+                }
+              }}
+            />
+          </div>
+
 
               {/* Navigation Footer */}
               <footer className="mt-24 pt-12 border-t border-[var(--border)]">
