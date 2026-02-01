@@ -1,0 +1,36 @@
+---
+title: "04. Probabilidad e Inferencia"
+order: 4
+description: "Modelando la incertidumbre: de Bayes a la Verosimilitud."
+---
+
+# 🎲 Probabilidad e Inferencia
+
+Si el mundo fuera determinista, la IA seria aburrida. Pero no lo es. El mundo es ruidoso, impredecible, y la probabilidad es la forma correcta de hablar de ese ruido sin mentirnos.
+
+## 1. Probabilidad Bayesiana vs Frecuentista
+*   **Frecuentista:** La probabilidad es el límite de la frecuencia relativa.
+*   **Bayesiana:** La probabilidad es un grado de creencia que se actualiza con datos.
+$$P(\theta | D) = \frac{P(D | \theta) P(\theta)}{P(D)}$$
+Esta fórmula es el corazón de la IA moderna (MAP, VAEs, Difusión).
+
+## 2. Variables Aleatorias y Distribuciones
+No basta con saber la media. Necesitamos entender la **varianza**, la **entropía** y la **divergencia de Kullback-Leibler (KL)**. La divergencia KL mide qué tan "lejos" está una distribución de otra, clave en el entrenamiento de modelos generativos.
+
+<div className="concept-box">
+**Conexión Física:** La entropia mide el desorden. En termodinamica, eso decide hacia donde va un sistema. En IA, la entropia decide si un modelo se colapsa o explora. Es la misma pelea, con otras palabras.
+</div>
+
+## 3. Estimación por Máxima Verosimilitud (MLE)
+Entrenar una red neuronal con una pérdida de Entropía Cruzada (Cross-Entropy) es equivalente a realizar MLE sobre una distribución de Bernoulli o Categórica. Estamos buscando los parámetros que hacen que los datos observados sean lo más probables posible.
+
+## 4. Referencias Académicas
+*   **E.T. Jaynes**, *Probability Theory: The Logic of Science*. Para una visión profunda de la probabilidad como lógica.
+*   **Christopher Bishop**, *Pattern Recognition and Machine Learning*. El capítulo 1 y 2 son esenciales.
+*   **MIT OCW 6.041**, *Probabilistic Systems Analysis and Applied Probability*.
+*   **MIT OCW 18.05**, *Introduction to Probability and Statistics*.
+{/* Apuntes internos: llm-ref/notas/semana_4_notas.md */}
+
+<div className="deep-explanation">
+**El Teorema Central del Límite:** Explica por qué el ruido en los datos a menudo sigue una distribución Normal (Gaussiana) y por qué las inicializaciones de pesos suelen basarse en distribuciones normales.
+</div>

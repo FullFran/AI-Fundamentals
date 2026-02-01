@@ -8,12 +8,12 @@ const modules = [
     description: "Espacios vectoriales, el modelo de Ising, energía de Hopfield y física estadística. La base profunda de la inteligencia.",
     href: "/fundamentos-matematicos",
     icon: <Icons.Math className="w-8 h-8" />,
-    topics: ["Álgebra Geométrica", "Modelo de Ising", "Energía y Atractores", "Física Estadística"]
+    topics: ["Lógica y Funciones", "Optimización Multivariable", "Álgebra Lineal", "Teoría del Aprendizaje"]
   },
   {
     number: 2,
     title: "Fundamentos de PyTorch",
-    description: "Domina los tensores y operaciones fundamentales. PyTorch es el framework estándar para investigación en IA.",
+    description: "Domina los tensores y operaciones fundamentales. PyTorch es el framework estándar para construir IA moderna.",
     href: "/pytorch-fundamentals",
     icon: <Icons.Flame className="w-8 h-8" />,
     topics: ["Tensores", "Multiplicación matricial", "Transposición", "Reshape", "Indexing", "Concatenación"]
@@ -48,7 +48,7 @@ const outcomes = [
   "Comprender las matemáticas de redes neuronales profundamente",
   "Manipular tensores con fluidez en PyTorch",
   "Implementar redes desde cero",
-  "Leer e implementar papers de investigación",
+  "Leer e implementar papers clave",
   "Depurar problemas de entrenamiento efectivamente"
 ];
 
@@ -63,10 +63,10 @@ export default function HomePage() {
         </div>
         
         <h1 className="max-w-4xl mx-auto leading-tight text-balance">
-          Conviértete en un Investigador de IA de Élite
+          Entiende la IA desde sus fundamentos
         </h1>
         <p className="hero-subtitle text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 text-pretty">
-          Un camino estructurado desde las matemáticas fundamentales hasta las arquitecturas SOTA, con visualizaciones interactivas.
+          Un camino estructurado desde las matemáticas fundamentales hasta las arquitecturas modernas, con visualizaciones interactivas.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300 fill-mode-both">
           <Link href="/fundamentos-matematicos" className="btn btn-primary text-lg px-8 py-4">
@@ -128,7 +128,7 @@ export default function HomePage() {
           <div>
             <h2 className="mt-0">Objetivos del Curso</h2>
             <p className="text-lg mb-8">
-              Este curso está diseñado para aquellos que no se conforman con usar modelos, sino que quieren crearlos y entenderlos a nivel de investigación.
+            Este curso es para quien no se conforma con usar modelos, sino que quiere entenderlos y construirlos desde dentro.
             </p>
             <ul className="space-y-4">
               {outcomes.map((outcome, idx) => (
@@ -143,8 +143,8 @@ export default function HomePage() {
              <div className="absolute inset-0 bg-gradient-to-br from-[var(--highlight)] to-[var(--highlight-secondary)] rounded-3xl rotate-3 opacity-20 blur-2xl animate-pulse"></div>
              <div className="relative card h-full flex flex-col items-center justify-center p-12 text-center">
                 <Icons.Brain className="w-16 h-16 text-[var(--highlight)] mb-6" />
-                <h3 className="text-3xl mb-4 italic">"De cero a Investigador"</h3>
-                <p className="text-[var(--text-secondary)] text-pretty">Un viaje riguroso pero intuitivo hacia la frontera del conocimiento.</p>
+                <h3 className="text-3xl mb-4 italic">"De cero a entender de verdad"</h3>
+                <p className="text-[var(--text-secondary)] text-pretty">Un viaje riguroso pero cercano para entender la IA por dentro.</p>
              </div>
           </div>
         </div>

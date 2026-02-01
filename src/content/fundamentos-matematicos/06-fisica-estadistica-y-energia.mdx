@@ -1,0 +1,68 @@
+---
+title: "06. Sistemas Dinámicos y Física Estadística"
+order: 6
+description: "De la Memoria Asociativa al Paisaje de Energía y Softmax."
+---
+
+# 🌀 Sistemas Dinámicos y Energía
+
+¿Te has preguntado alguna vez por qué una red neuronal puede "recordar" algo? Para entenderlo, tenemos que dejar de pensar como programadores y empezar a pensar como físicos. Vamos a mirar cómo se comporta la materia para entender cómo se comporta la inteligencia.
+
+Ya te digo yo que esto es lo más bonito de todo el curso: el **Modelo de Ising**. Es la historia de cómo pequeñas unidades individuales (como átomos o neuronas) se ponen de acuerdo para crear un orden colectivo a partir del caos.
+
+## 1. El Paisaje de Energía: Esculpiendo recuerdos
+Imagina que el conocimiento es un mapa lleno de montañas y valles. Cuando un sistema físico busca la estabilidad, busca la **mínima energía**. Se deja caer al fondo del valle.
+
+En IA, aprender no es "guardar datos en un disco duro". Aprender es **moldear ese paisaje**. Estás usando el descenso del gradiente para cavar pozos en el mapa de energía de modo que, cuando le des a la red una imagen ruidosa, el sistema "caiga" de forma natural hacia el recuerdo correcto. ¡Es una locura!
+
+$$ E = - \sum_{i,j} J_{ij} s_i s_j $$
+
+## 2. La Conexión con Hopfield
+John Hopfield se dio cuenta de algo que cambió la historia: si tratamos a las neuronas como espines de un imán, podemos usar la física para crear memoria.
+
+<div className="concept-box">
+### El Hamiltoniano: La partitura del sistema
+En una Red de Hopfield, la energía total del sistema es nuestra guía:
+$$ H = -\frac{1}{2} \sum_{i,j} w_{ij} s_i s_j $$
+Recuperar un recuerdo es simplemente dejar que las neuronas "se relajen" y encuentren el estado de mínima energía. Es como ver una canica rodar hasta el fondo de un cuenco.
+</div>
+
+## 3. Atractores, Softmax y Temperatura
+En física, un **atractor** es ese punto del valle que "atrae" todo lo que cae cerca. 
+*   ¿Y la famosa función **Softmax**? No es más que una distribución de Boltzmann disfrazada:
+$$P(x) = \frac{1}{Z} e^{-E(x)/T}$$
+
+Aquí entra en juego la **Temperatura ($T$)**. Si la temperatura es alta, hay mucho ruido y el sistema salta de un valle a otro. Si es baja, el sistema se queda "congelado" en el mínimo. Por eso en los modelos de lenguaje (LLMs) ajustamos la "temperatura" para que sean más creativos o más deterministas. ¡Es física pura!
+
+<div className="deep-explanation">
+**Nota honesta:** Softmax no nacio de la fisica. Viene de regresion logistica y modelos probabilisticos. La lectura de Boltzmann es una interpretacion preciosa porque conecta energia y entropia, pero es a posteriori. Eso no la hace menos util; la hace mas profunda.
+</div>
+
+
+## 4. Referencias Académicas
+*   **Marc Mézard & Andrea Montanari**, *Information, Physics, and Computation*. La biblia de esta conexión.
+*   **John Hopfield**, *Neural networks and physical systems with emergent collective computational abilities* (1982).
+*   **MIT OCW 8.044**, *Statistical Physics I*.
+{/* Apuntes internos: llm-ref/clases/semana_3_anexo_fisica_atencion.md */}
+
+<CodeBlock
+  title="energia_hopfield.py"
+  language="python"
+  code={`import torch
+
+def calcular_energia(estado, pesos):
+    # La energia es E = -0.5 * s.T * W * s
+    energia = -0.5 * torch.dot(estado, pesos @ estado)
+    return energia.item()
+
+# Red con 3 neuronas
+W = torch.tensor([[0.0, 1.0, -1.0],
+                  [1.0, 0.0, 1.0],
+                  [-1.0, 1.0, 0.0]])
+
+recuerdo = torch.tensor([1.0, 1.0, -1.0])
+ruido = torch.tensor([1.0, -1.0, -1.0])
+
+print(f"Energia del recuerdo: {calcular_energia(recuerdo, W)}")
+print(f"Energia con ruido:    {calcular_energia(ruido, W)}")`}
+/>

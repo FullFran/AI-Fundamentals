@@ -1,0 +1,40 @@
+---
+title: "02. Cálculo y Optimización Multivariable"
+order: 2
+description: "Gradientes, Jacobianos y la geometría de la optimización."
+---
+
+# 📐 Cálculo y Optimización
+
+Yo lo veo así: entrenar un modelo es como soltar una canica en un paisaje de energía y ver cómo encuentra el valle más profundo. En IA, ese paisaje se llama función de coste $J(\theta)$. Lo que buscamos es el conjunto de parámetros $\theta$ que la minimiza.
+
+## 1. El Gradiente ($\nabla$)
+Para una función escalar $f: \mathbb{R}^n \to \mathbb{R}$, el gradiente es el vector de sus derivadas parciales:
+$$\nabla f(x) = \left[ \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \dots, \frac{\partial f}{\partial x_n} \right]^T$$
+
+**Intuición:** El gradiente apunta en la dirección de máximo crecimiento local. Por eso, para minimizar, nos movemos en la dirección $-\nabla f(x)$.
+
+<div className="concept-box">
+**Conexión Física:** El gradiente es la fuerza que siente una partícula en un potencial. Si el potencial es $E(x)$, la fuerza apunta a $-\nabla E(x)$. Entrenar una red es literalmente dejar que el sistema baje energía.
+</div>
+
+## 2. Matriz Hessiana y Convexidad
+La Hessiana $H$ contiene las segundas derivadas: $H_{ij} = \frac{\partial^2 f}{\partial x_i \partial x_j}$.
+*   Si $H$ es definida positiva en todo el dominio, la función es **convexa**.
+*   En funciones convexas, cualquier mínimo local es un mínimo global. ¡El paraíso de la optimización!
+*   **Realidad en IA:** Las redes neuronales son NO convexas. Tenemos que lidiar con puntos de silla y mínimos locales.
+
+## 3. Jacobianos y Backpropagation
+Cuando tenemos funciones vectoriales $f: \mathbb{R}^n \to \mathbb{R}^m$, usamos la matriz Jacobiana. La **regla de la cadena** multivariable es lo que permite que el error fluya hacia atrás en una red (Backpropagation).
+
+## 4. Referencias Académicas
+*   **Stephen Boyd & Lieven Vandenberghe**, *Convex Optimization*. Referencia absoluta en ingeniería.
+*   **Gilbert Strang**, *Calculus*. Excelente para construir la intuición geométrica antes del rigor.
+*   **MIT OCW 18.02**, *Multivariable Calculus*. Gradientes, Jacobianos y geometría en alta dimensión.
+*   **MIT OCW 18.06**, *Linear Algebra*. El soporte algebraico detrás de la optimización.
+{/* Apuntes internos: llm-ref/notas/semana_3_notas.md */}
+
+<div className="deep-explanation">
+**¿Por qué el segundo orden importa?**
+Aunque usamos primer orden (Gradiente), el condicionamiento de la Hessiana determina qué tan rápido podemos converger. Un radio de curvatura muy dispar hace que el optimizador "oscile".
+</div>

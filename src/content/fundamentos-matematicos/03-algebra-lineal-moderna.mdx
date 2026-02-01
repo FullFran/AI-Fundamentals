@@ -1,0 +1,41 @@
+---
+title: "03. Álgebra Lineal Moderna y Tensores"
+order: 3
+description: "Espacios vectoriales, SVD y la estructura de los datos."
+---
+
+# 🏗️ Álgebra Lineal Moderna
+
+Si el cálculo es el motor de la IA, el álgebra lineal es el chasis. Todo dato (imagen, texto, audio) vive en un espacio vectorial. Y te lo digo tal cual: si entiendes esto, entiendes media IA.
+
+## 1. Espacios Vectoriales y Bases
+Un espacio vectorial $V$ sobre un campo (usualmente $\mathbb{R}$) es un conjunto de objetos que pueden sumarse y multiplicarse por escalares.
+*   **Base:** El conjunto mínimo de vectores que generan todo el espacio.
+*   **Cambio de Base:** Es la esencia de las transformaciones lineales. Una capa lineal en una red neuronal es, literalmente, un cambio de base seguido de una no-linealidad.
+
+<div className="concept-box">
+**Conexión Física:** Cambiar de base es como pasar de coordenadas cartesianas a polares. La física cambia de sistema cuando le conviene, y la IA hace lo mismo con embeddings.
+</div>
+
+## 2. Descomposición en Valores Singulares (SVD)
+Cualquier matriz $A$ puede descomponerse en $A = U\Sigma V^T$.
+*   **Compresión:** SVD nos permite identificar las direcciones de mayor varianza (PCA).
+*   **Condicionamiento:** Nos dice qué tan estable es un sistema lineal frente al ruido.
+
+## 3. De Matrices a Tensores
+Un tensor es una generalización de una matriz a $n$ dimensiones. En IA, trabajamos con tensores de rango 4 (Batch, Canales, Alto, Ancho) de forma natural. El **producto interno** y el **producto externo** son las operaciones base de los mecanismos de atención (Transformers).
+
+<div className="deep-explanation">
+**Física y tensores:** En mecánica, el tensor de esfuerzos te dice cómo se deforma un material en cada dirección. En IA, un tensor te dice cómo se deforma la informacion en cada capa. Es la misma idea con otro idioma.
+</div>
+
+## 4. Referencias Académicas
+*   **Gilbert Strang**, *Linear Algebra and Its Applications*. El estándar de oro.
+*   **Sheldon Axler**, *Linear Algebra Done Right*. Para una visión más teórica basada en operadores.
+*   **MIT OCW 18.06**, *Linear Algebra*. El clásico de Strang con la intuición geométrica.
+*   **MIT OCW 18.065**, *Matrix Methods in Data Analysis, Signal Processing, and ML*.
+{/* Apuntes internos: llm-ref/clases/semana_2_consolidada.md */}
+
+<div className="concept-box">
+**Conexión IA:** El mecanismo de *Self-Attention* en Transformers es esencialmente una serie de productos escalares (dot products) escalados que miden la similitud en un espacio vectorial de embeddings.
+</div>

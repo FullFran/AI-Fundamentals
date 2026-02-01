@@ -34,7 +34,7 @@ export default function Navigation() {
           <div className="p-1.5 bg-gradient-to-br from-[var(--highlight)] to-[var(--highlight-secondary)] rounded-lg group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-cyan-500/20">
             <Icons.Brain className="w-5 h-5 text-white" />
           </div>
-          <span className="hidden md:inline font-bold tracking-tight text-[var(--text-primary)]">AI Researcher</span>
+          <span className="hidden md:inline font-bold tracking-tight text-[var(--text-primary)]">Fundamentos de IA</span>
         </Link>
 
         {/* Desktop Links */}

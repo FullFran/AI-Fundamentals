@@ -1,0 +1,52 @@
+---
+title: "01. Lógica, Conjuntos y Funciones"
+order: 1
+description: "Fundamentos formales: de la teoría de conjuntos a la topología de funciones."
+---
+
+# 🧮 Lógica, Conjuntos y Funciones
+
+Mira, vamos a ser claros: las matemáticas no son un castigo, son **el lenguaje secreto de la realidad**. Si quieres construir algo que piense, primero tienes que entender cómo se estructura el pensamiento en el universo. Antes de tocar una sola línea de código en PyTorch, tenemos que entender cómo las funciones transforman los datos. Es así de fácil, y a la vez, es una locura.
+
+## 1. ¿Qué es, de verdad, una Función?
+Olvida las gráficas aburridas del instituto. Una función $f: A \to B$ es una **máquina de transformar mundos**. Tomas algo de un sitio (el dominio $A$) y lo lanzas a otro (el codominio $B$).
+
+En Deep Learning, casi todo lo que hacemos es construir funciones gigantescas. Una imagen de un gato entra por un lado (miles de números) y sale una sola palabra por el otro: "Gato".
+
+<InteractiveGraph type="linear" title="Función Lineal: La base de todo" />
+
+### Las reglas del juego
+Para que esto funcione en serio, necesitamos rigor. No nos vale cualquier "máquina":
+*   **Inyectividad:** Queremos que nuestra máquina no sea "tonta". Si le das dos cosas distintas, lo ideal es que te devuelva dos resultados distintos. Si no, estás perdiendo información por el camino.
+*   **Continuidad:** Esta es la clave de todo el Deep Learning. $\forall \epsilon > 0 \dots$ ya sabes el rollo formal, pero lo que significa de verdad es: **"Si cambio un poquito la entrada, el resultado cambia un poquito"**. Si tu red no es continua, el aprendizaje se rompe. Es así de sencillo.
+
+## 2. La Magia de la Sigmoide
+Ostras, esta función es una maravilla. Es la que nos permite pasar del mundo infinito de los números reales al mundo acotado de las probabilidades (entre 0 y 1).
+
+<InteractiveGraph type="sigmoid" title="Sigmoide: Comprimiendo el infinito" />
+
+<CodeBlock
+  title="sigmoide_basica.py"
+  language="python"
+  code={`import numpy as np
+
+# Esta pequeña funcion es la que encendio la mecha de las redes neuronales
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+print(f"En el centro, todo es duda: {sigmoid(0)}") # 0.5`}
+/>
+
+## 3. Espacios Métricos y Distancias
+Un conjunto $M$ con una función de distancia (métrica) $d(x, y)$ que cumple con la desigualdad triangular. Esto es la base de las funciones de pérdida (**Loss Functions**). Si no sabemos medir la distancia entre la predicción y la realidad, el modelo no puede aprender nada.
+
+## 4. Referencias Académicas
+*   **Michael Spivak**, *Calculus*. El libro sagrado para entender el rigor del análisis matemático.
+*   **Walter Rudin**, *Principles of Mathematical Analysis*. Para aquellos que quieran profundizar en la topología de los espacios reales.
+*   **MIT OCW 18.01**, *Single Variable Calculus*. Bases formales y visuales del cálculo.
+*   **MIT OCW 18.02**, *Multivariable Calculus*. Extiende la intuición a dimensiones altas.
+{/* Apuntes internos: llm-ref/notas/semana_1_notas_init.md */}
+
+<div className="concept-box">
+**Ejercicio Pro:** Demuestra que la función ReLU $f(x) = \max(0, x)$ es continua pero no diferenciable en $x=0$. ¿Cómo afecta esto al descenso del gradiente?
+</div>

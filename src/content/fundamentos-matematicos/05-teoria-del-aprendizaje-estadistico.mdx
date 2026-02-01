@@ -1,0 +1,36 @@
+---
+title: "05. Teoría del Aprendizaje Estadístico"
+order: 5
+description: "PAC Learning, Generalización y el Puente hacia el Deep Learning."
+---
+
+# 🎓 Teoría del Aprendizaje Estadístico (SLT)
+
+Esta es la parte que separa la intuición bonita de la ciencia real. ¿Por qué un modelo que funciona en entrenamiento debería funcionar fuera? Esta pregunta es el corazón del aprendizaje.
+
+## 1. El Problema de la Generalización
+Sea $\mathcal{X}$ el espacio de entrada y $\mathcal{Y}$ el de salida. Buscamos una función $h: \mathcal{X} \to \mathcal{Y}$ en un espacio de hipótesis $\mathcal{H}$ que minimice el **Riesgo Esperado**:
+$$R(h) = \mathbb{E}_{(x,y) \sim P}[L(h(x), y)]$$
+Como no conocemos la distribución real $P$, minimizamos el **Riesgo Empírico** sobre un conjunto de datos $S$:
+$$\hat{R}_S(h) = \frac{1}{m} \sum_{i=1}^m L(h(x_i), y_i)$$
+
+## 2. Complejidad de Rademacher y Dimensión VC
+Para garantizar que $\hat{R}_S(h) \approx R(h)$, necesitamos que el espacio de hipótesis $\mathcal{H}$ no sea "demasiado flexible". La Dimensión VC mide la capacidad de un modelo para "memorizar" datos aleatorios.
+
+<div className="concept-box">
+**Conexión Física:** Piensa en un sistema con demasiados grados de libertad. Puede ajustarse a cualquier fluctuacion del ruido, pero pierde estabilidad. La generalizacion es el equilibrio entre libertad y estructura.
+</div>
+
+## 3. Aprendizaje Probablemente Aproximadamente Correcto (PAC)
+Un algoritmo de aprendizaje es PAC si, con alta probabilidad ($1-\delta$), el error del modelo es menor que un pequeño $\epsilon$. Esto pone límites teóricos a cuántos datos necesitamos para aprender una tarea.
+
+## 4. Referencias Académicas
+*   **Shai Shalev-Shwartz & Shai Ben-David**, *Understanding Machine Learning: From Theory to Algorithms*. El libro de referencia moderno.
+*   **Vladimir Vapnik**, *The Nature of Statistical Learning Theory*. El origen de la SLT.
+*   **MIT OCW 6.036**, *Introduction to Machine Learning*.
+*   **MIT OCW 6.867**, *Machine Learning*.
+{/* Apuntes internos: llm-ref/notas/semana_5_notas.md */}
+
+<div className="concept-box">
+**La Paradoja del Deep Learning:** Según la teoría clásica, las redes neuronales con millones de parámetros deberían sobreajustar (overfit) masivamente. Sin embargo, generalizan bien. Estudiar por qué (descenso de gradiente implícito, double descent) es la frontera actual.
+</div>

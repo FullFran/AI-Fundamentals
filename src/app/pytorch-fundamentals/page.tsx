@@ -16,7 +16,7 @@ export default function PyTorchFundamentalsIndex() {
           <h1 className="text-5xl font-black mb-0">Fundamentos de PyTorch</h1>
         </div>
         <p className="text-xl text-[var(--text-secondary)] max-w-3xl leading-relaxed text-pretty">
-          Domina los tensores y las operaciones fundamentales del framework líder en investigación.
+          Domina los tensores y las operaciones fundamentales del framework líder en IA moderna.
         </p>
       </header>
 

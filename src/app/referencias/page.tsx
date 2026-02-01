@@ -30,7 +30,7 @@ export default function Referencias() {
       <header className="mb-16 text-center">
         <h1 className="mb-4">📚 Bibliografía y Recursos</h1>
         <p className="text-xl text-[var(--text-secondary)]">
-          La ciencia avanza a hombros de gigantes. Estos son los pilares de la investigación en IA moderna.
+          La ciencia avanza a hombros de gigantes. Estos son los pilares para entender la IA moderna.
         </p>
       </header>
 
@@ -61,7 +61,7 @@ export default function Referencias() {
       <section className="mt-24">
         <div className="card bg-gradient-to-br from-[var(--secondary)] to-[var(--primary)] border-[var(--highlight)]/20 p-12 text-center">
            <h2 className="mt-0 border-none text-[var(--highlight)]">¿Quieres ir más allá?</h2>
-           <p className="text-lg mb-10">Explora el código fuente y las notas detalladas en mi repositorio de investigación.</p>
+           <p className="text-lg mb-10">Explora el código fuente y las notas detalladas en mi repositorio.</p>
            <div className="flex justify-center">
              <a href="https://github.com" target="_blank" className="btn btn-primary px-10">
                 ⭐ GitHub del Proyecto
