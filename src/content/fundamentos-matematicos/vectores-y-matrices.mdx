@@ -21,7 +21,7 @@ Cuando tus datos pasan por una capa, el espacio hace tres cosas:
 2. **Escala:** Le da volumen a lo importante y achica lo que no sirve.
 3. **Proyecta:** Aplasta dimensiones para quedarse con la esencia. Es así de simple.
 
-<Mermaid chart="
+<Mermaid>
 graph LR
     A[Espacio V] --> B[Operador W]
     B --> C[Espacio W]
@@ -32,19 +32,12 @@ graph LR
     E[Escalado]
     F[Proyeccion]
     end
-    
-    style A fill:#1e293b,stroke:#00d4ff
-    style B fill:#00d4ff10,stroke:#00d4ff
-    style C fill:#1e293b,stroke:#7c3aed
-    style Deformacion fill:#1a1a3a,stroke:#334155
-" />
+</Mermaid>
 
 ## 2. El Producto Escalar: Medir la Alineación
 El producto escalar mide cuánto se "alinean" dos flechas. Es el corazón de los Transformers.
 
-<math-block>
-  a · b = |a| |b| cos(theta)
-</math-block>
+$$ \vec{a} \cdot \vec{b} = \|\vec{a}\| \|\vec{b}\| \cos(\theta) $$
 
 ### Intuición de la Atención
 En los Transformers, tienes una **Query (Q)** y una **Key (K)**. La red proyecta una sobre la otra. 

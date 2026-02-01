@@ -17,43 +17,32 @@ No usaremos `torch.nn` hasta que hayamos implementado manualmente el paso hacia 
 
 Inspirada en la biología, una neurona artificial es simplemente una función matemática que suma entradas ponderadas y decide si "disparar" o no mediante una activación.
 
-<Mermaid chart="
+<Mermaid>
 graph LR
     subgraph Entrada
-    A[x1]
-    B[x2]
-    C[x3]
+    X1[x1]
+    X2[x2]
+    X3[x3]
     end
 
     subgraph CuerpoCelular
-    D[Sum]
-    E[Act]
+    Sum[Suma]
+    Act[Activacion]
     end
 
-    F[y]
+    Out[y]
 
-    A --> D
-    B --> D
-    C --> D
-    D --> E
-    E --> F
-
-    style D fill:#00d4ff10,stroke:#00d4ff,stroke-width:2px
-    style E fill:#7c3aed10,stroke:#7c3aed,stroke-width:2px
-    style A fill:#1e293b,stroke:#94a3b8
-    style B fill:#1e293b,stroke:#94a3b8
-    style C fill:#1e293b,stroke:#94a3b8
-    style F fill:#10b98120,stroke:#10b981,stroke-width:2px
-    style Entrada fill:transparent,stroke:#334155
-    style CuerpoCelular fill:#0a0a1a,stroke:#334155
-" />
+    X1 --> Sum
+    X2 --> Sum
+    X3 --> Sum
+    Sum --> Act
+    Act --> Out
+</Mermaid>
 
 <div className="card bg-slate-900/40 p-6 border-slate-700">
    <h4 className="mt-0 text-sm uppercase tracking-widest text-[var(--text-secondary)]">La Ecuación Sagrada</h4>
-   <math-block>
-     y = s(w*x + b)
-   </math-block>
-   <div className="text-sm italic mb-0">Donde **w** son los pesos, **x** las entradas, **b** el sesgo y **s** la activación.</div>
+   $$ y = \sigma(\sum_i w_i x_i + b) $$
+   <div className="text-sm italic mb-0">Donde $w$ son los pesos, $x$ las entradas, $b$ el sesgo y $\sigma$ la activación.</div>
 </div>
 
 <CodeBlock
@@ -80,7 +69,7 @@ print(f"Salida: {simple_neuron(x, w, b)}")`}
 No es magia, es **cálculo**. Backpropagation es el proceso de usar la regla de la cadena para calcular el gradiente de la función de pérdida respecto a cada peso. 
 </CollapsibleSection>
 
-<Mermaid chart="
+<Mermaid>
 graph RL
     L[Loss] --> P[Prediccion]
     P --> H[Capas Ocultas]
@@ -91,13 +80,7 @@ graph RL
     L -.-> P
     P -.-> H
     end
-
-    style L fill:#ef4444,stroke:#fff
-    style P fill:#1e293b,stroke:#94a3b8
-    style H fill:#1e293b,stroke:#94a3b8
-    style I fill:#1e293b,stroke:#94a3b8
-    style Aprendizaje fill:#1a1a3a,stroke:#00d4ff
-" />
+</Mermaid>
 
 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12 text-balance">
    <div className="card border-l-4 border-l-[var(--highlight)] p-6 mb-0 bg-slate-900/20">

@@ -29,30 +29,26 @@ Hopfield no pensaba como un programador, pensaba como un físico. Se dio cuenta 
 
 Para que una red recuerde algo, todas sus neuronas tienen que aprender cómo están relacionadas. Aquí es donde entra el **Producto Externo**. 
 
-Si tienes un patrón de entrada **u**, el producto externo construye una matriz que conecta cada neurona con todas las demás, "congelando" su relación para siempre.
+Si tienes un patrón de entrada $\vec{u}$, el producto externo construye una matriz que conecta cada neurona con todas las demás, "congelando" su relación para siempre.
 
 <concept-box>
-### El Producto Externo (u ⊗ v)
+### El Producto Externo ($\vec{u} \otimes \vec{v}$)
 Mientras que el producto escalar te da un número (similitud), el producto externo te da una **matriz completa**. Esta matriz es el mapa de cómo cada componente del vector se correlaciona con los demás. Es la herramienta para construir operadores de memoria.
 </concept-box>
 
-<math-block>
-  W = u (outer) u = u * uT
-</math-block>
+$$W = \vec{u} \otimes \vec{v} = \vec{u} \vec{v}^T$$
 
 ## 3. La Regla de Hebb: Aprender es Correlacionar
 
 Hopfield usó la famosa **Regla de Hebb**: "neuronas que disparan juntas, se cablean juntas". Matemáticamente, esto significa que para guardar varios recuerdos, solo tienes que ir sumando sus productos externos:
 
-<math-block>
-  Matriz_Memoria = Patron1(outer)Patron1 + Patron2(outer)Patron2 + ...
-</math-block>
+$$W = \sum_{k} \xi^{(k)} \otimes \xi^{(k)}$$
 
 <Mermaid chart="
 graph TD
     A[Patron 1] --> M1[Memoria 1]
     B[Patron 2] --> M2[Memoria 2]
-    M1 --> Sum[Suma de Experiencias]
+    M1 --> Sum[Suma de Memorias]
     M2 --> Sum
     Sum --> W[Matriz de Pesos W]
     
@@ -64,7 +60,7 @@ graph TD
 
 Esta conexión entre memoria y física ha vuelto con una fuerza increíble. En el paper de 2020 *"Hopfield Networks is All You Need"*, se demuestra que el mecanismo de atención de los Transformers es, en realidad, una evolución de estas redes de memoria asociativa.
 
-Cuando un Transformer calcula **Q * KT**, está haciendo una búsqueda en un banco de memoria. La gran diferencia es que lo hace de forma continua y a una escala masiva, permitiendo que el modelo "recupere" el contexto relevante de entre miles de palabras. Ya te digo yo que entender Hopfield es entender el alma de los LLMs.
+Cuando un Transformer calcula $Q K^T$, está haciendo una búsqueda en un banco de memoria. La gran diferencia es que lo hace de forma continua y a una escala masiva, permitiendo que el modelo "recupere" el contexto relevante de entre miles de palabras. Entender Hopfield es entender el alma de los LLMs.
 
 <CodeBlock
   title="recuperacion_memoria.py"

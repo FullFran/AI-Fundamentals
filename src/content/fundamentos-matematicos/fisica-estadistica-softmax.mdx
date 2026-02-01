@@ -10,38 +10,32 @@ En IA, cuando queremos que un modelo elija entre varias opciones, usamos la func
 
 ## 1. El Sistema en Equilibrio
 
-En física estadística, la probabilidad de que un sistema se encuentre en un estado con energía **E** depende de la temperatura **T**. A esta relación la llamamos el factor de Boltzmann:
+En física estadística, la probabilidad de que un sistema se encuentre en un estado con energía $E$ depende de la temperatura $T$. A esta relación la llamamos el factor de Boltzmann:
 
-<math-block>
-  P(estado) = exp(-E / kT) / Z
-</math-block>
+$$P(\text{estado}) = \frac{e^{-E / kT}}{Z}$$
 
-Donde **Z** es la función de partición (la suma de todos los estados posibles para normalizar). ¿Te suena? Es exactamente lo que hace la Softmax con los "logits" de una red neuronal.
+Donde $Z$ es la función de partición (la suma de todos los estados posibles para normalizar). ¿Te suena? Es exactamente lo que hace la Softmax con los "logits" de una red neuronal.
 
 ## 2. La Softmax es Física Pura
 
 Si tratamos a los logits (las salidas crudas de la red) como **energías negativas**, la Softmax nos da la probabilidad de ocupación de esos estados:
 
-<math-block>
-  Softmax(z_i) = exp(z_i) / Sum( exp(z_j) )
-</math-block>
+$$\text{Softmax}(z_i) = \frac{e^{z_i}}{\sum e^{z_j}}$$
 
 <concept-box>
 ### Energía y Confianza
 - **Baja Energía (Logit alto):** El sistema es estable, el modelo está seguro.
-- **Alta Energía (Logit bajo):** El sistema es inestable, la probabilidad es mínima.
+- **Alta Energía (Logit bajo):** El sistema está excitado, la probabilidad es mínima.
 </concept-box>
 
-## 3. El Rol de la Temperatura (Tau)
+## 3. El Rol de la Temperatura ($\tau$)
 
 En física, si calientas un sistema, las partículas saltan a estados de mayor energía. En IA, podemos añadir un parámetro de **Temperatura** a la Softmax:
 
-<math-block>
-  P_i = exp(z_i / Tau) / Sum( exp(z_j / Tau) )
-</math-block>
+$$P_i = \frac{e^{z_i / \tau}}{\sum e^{z_j / \tau}}$$
 
-- **Temperatura Baja (Tau -> 0):** El modelo se vuelve determinista. Solo elige la opción con menor energía (el logit más alto). Es como un cristal perfecto a 0 Kelvin.
-- **Temperatura Alta (Tau -> 1+):** El modelo se vuelve "creativo" o caótico. Las probabilidades se reparten y el sistema explora estados de mayor energía.
+- **Temperatura Baja ($\tau \to 0$):** El modelo se vuelve determinista. Solo elige la opción con menor energía (el logit más alto). Es como un cristal perfecto a 0 Kelvin.
+- **Temperatura Alta ($\tau \to 1+$):** El modelo se vuelve "creativo" o caótico. Las probabilidades se reparten y el sistema explora estados de mayor energía.
 
 <div className="card bg-slate-900/50 border-[var(--highlight)]/20 p-6 text-balance">
   <h4 className="text-[var(--highlight)] mt-0 mb-4">💡 El Secreto de la Creatividad</h4>
@@ -56,8 +50,10 @@ En física, si calientas un sistema, las partículas saltan a estados de mayor e
 
 La **Entropía de Shannon** (o la entropía termodinámica) nos dice cuánta incertidumbre hay en el sistema. 
 
+$$H = -\sum p_i \log p_i$$
+
 - Si la entropía es baja, el modelo está seguro de su predicción.
-- Si la entropía es alta, el sistema está en un estado de máximo desorden (todas las opciones parecen igual de probables).
+- Si la entropía es alta, el sistema está en un estado de máximo desorden.
 
 <CodeBlock
   title="boltzmann_softmax.py"
