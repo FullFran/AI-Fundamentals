@@ -1,20 +1,21 @@
 import Link from "next/link";
+import { Icons } from "@/components/Icons";
 
 const modules = [
   {
     number: 1,
-    title: "Fundamentos Matemáticos",
-    description: "Funciones, derivadas, vectores, gradientes, matrices y probabilidad. La base matemática esencial para entender el deep learning.",
+    title: "Fundamentos Físico-Matemáticos",
+    description: "Espacios vectoriales, el modelo de Ising, energía de Hopfield y física estadística. La base profunda de la inteligencia.",
     href: "/fundamentos-matematicos",
-    icon: "🧮",
-    topics: ["Funciones matemáticas", "Derivadas", "Vectores", "Gradientes", "Matrices", "Probabilidad"]
+    icon: <Icons.Math className="w-8 h-8" />,
+    topics: ["Álgebra Geométrica", "Modelo de Ising", "Energía y Atractores", "Física Estadística"]
   },
   {
     number: 2,
     title: "Fundamentos de PyTorch",
     description: "Domina los tensores y operaciones fundamentales. PyTorch es el framework estándar para investigación en IA.",
     href: "/pytorch-fundamentals",
-    icon: "🔥",
+    icon: <Icons.Flame className="w-8 h-8" />,
     topics: ["Tensores", "Multiplicación matricial", "Transposición", "Reshape", "Indexing", "Concatenación"]
   },
   {
@@ -22,7 +23,7 @@ const modules = [
     title: "Redes Neuronales desde Cero",
     description: "Construye neuronas, capas y redes completas desde cero. Comprende backpropagation a nivel fundamental.",
     href: "/redes-neuronales",
-    icon: "🧠",
+    icon: <Icons.Cpu className="w-8 h-8" />,
     topics: ["Neurona individual", "Capas densas", "Backpropagation", "Funciones de activación", "Optimizadores"]
   },
   {
@@ -30,7 +31,7 @@ const modules = [
     title: "Visión Computacional",
     description: "Detecta patrones en imágenes con CNNs (Redes Neuronales Convolucionales). Arquitecturas como TinyVGG.",
     href: "/vision-computacional",
-    icon: "👁️",
+    icon: <Icons.Eye className="w-8 h-8" />,
     topics: ["Imágenes NCHW", "Convolución (Conv2d)", "Pooling (MaxPool)", "Arquitectura TinyVGG"]
   },
   {
@@ -38,7 +39,7 @@ const modules = [
     title: "Transformers",
     description: "La arquitectura que revolucionó la IA. Desde el mecanismo de atención hasta GPT.",
     href: "/transformers",
-    icon: "⚡",
+    icon: <Icons.Zap className="w-8 h-8" />,
     topics: ["Mecanismo de atención", "Self-Attention", "Multi-Head Attention", "Decoder-Only Transformer"]
   }
 ];
@@ -53,62 +54,63 @@ const outcomes = [
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="hero">
-        <h1 className="hero-title">
-          Curso Introductorio de Investigación en IA
+      <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-6">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--highlight)]/20 rounded-full blur-[128px] animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--highlight-secondary)]/20 rounded-full blur-[128px] animate-pulse delay-700"></div>
+        </div>
+        
+        <h1 className="max-w-4xl mx-auto leading-tight text-balance">
+          Conviértete en un Investigador de IA de Élite
         </h1>
-        <p className="hero-subtitle">
-          Un curso para aprender los fundamentos de la inteligencia artificial, desde las matemáticas básicas 
-          hasta los Transformers, con visualizaciones interactivas.
+        <p className="hero-subtitle text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 text-pretty">
+          Un camino estructurado desde las matemáticas fundamentales hasta las arquitecturas SOTA, con visualizaciones interactivas.
         </p>
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <Link href="/fundamentos-matematicos" className="btn btn-primary">
-            🚀 Comenzar el Curso
+        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300 fill-mode-both">
+          <Link href="/fundamentos-matematicos" className="btn btn-primary text-lg px-8 py-4">
+            Comenzar el Viaje
           </Link>
-          <Link href="/referencias" className="btn btn-secondary">
-            📚 Ver Referencias
+          <Link href="/referencias" className="btn btn-secondary text-lg px-8 py-4 flex items-center gap-2">
+            <Icons.Book className="w-5 h-5" /> Bibliografía
           </Link>
         </div>
       </section>
 
       {/* Ruta de Aprendizaje */}
       <section className="container">
-        <h2>🎯 Ruta de Aprendizaje</h2>
+        <h2 className="text-center md:text-left">Ruta de Aprendizaje</h2>
         
-        <div className="concept-box">
-          <div className="concept-title">Enfoque Bottom-Up</div>
-          <p style={{ margin: 0 }}>
-            Este curso utiliza un enfoque de abajo hacia arriba: primero los fundamentos, 
-            luego construimos hacia arriba. Esto desarrolla una comprensión verdadera y 
-            permite la investigación independiente.
+        <div className="concept-box mb-12">
+          <h3 className="text-[var(--highlight)] mt-0 mb-2">Filosofía Bottom-Up</h3>
+          <p className="m-0 text-lg">
+            No usamos librerías de alto nivel hasta que entendemos cómo funcionan por dentro. 
+            Construimos intuición antes de abstracción.
           </p>
         </div>
 
-        <div className="modules-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {modules.map((module) => (
-            <Link key={module.number} href={module.href} style={{ textDecoration: 'none' }}>
-              <div className="module-card">
-                <div className="module-number">{module.number}</div>
-                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{module.icon}</div>
-                <h3 className="module-title" style={{ marginTop: '0.5rem', color: 'var(--text-primary)' }}>
+            <Link key={module.number} href={module.href} className="group">
+              <div className="card h-full relative overflow-hidden group-hover:-translate-y-2 transition-transform duration-500">
+                <div className="absolute top-0 right-0 p-6 text-[var(--highlight)] opacity-10 group-hover:opacity-30 group-hover:scale-110 transition-all duration-500">
+                  {module.icon}
+                </div>
+                <div className="w-12 h-12 bg-[var(--highlight)] text-[var(--primary)] rounded-full flex items-center justify-center font-black text-xl mb-6 shadow-lg shadow-cyan-500/20">
+                  {module.number}
+                </div>
+                <h3 className="text-2xl mb-4 group-hover:text-[var(--highlight)] transition-colors">
                   {module.title}
                 </h3>
-                <p style={{ fontSize: '0.95rem', marginBottom: '1rem' }}>
+                <p className="text-[var(--text-secondary)] mb-6 line-clamp-3">
                   {module.description}
                 </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div className="flex flex-wrap gap-2 mt-auto">
                   {module.topics.slice(0, 4).map((topic, idx) => (
                     <span 
                       key={idx}
-                      style={{
-                        background: 'rgba(0, 212, 255, 0.1)',
-                        padding: '0.25rem 0.5rem',
-                        borderRadius: '4px',
-                        fontSize: '0.8rem',
-                        color: 'var(--highlight)'
-                      }}
+                      className="bg-[var(--highlight)]/10 text-[var(--highlight)] px-3 py-1 rounded-full text-xs font-semibold border border-[var(--highlight)]/20"
                     >
                       {topic}
                     </span>
@@ -120,95 +122,47 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Cómo Progresar */}
+      {/* Lo que Aprenderás */}
       <section className="container">
-        <h2>📖 Cómo Progresar</h2>
-        <div className="card">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-            <div>
-              <h4 style={{ color: 'var(--highlight)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span>1️⃣</span> Sigue el orden secuencial
-              </h4>
-              <p>Completa cada fase antes de pasar a la siguiente.</p>
-            </div>
-            <div>
-              <h4 style={{ color: 'var(--highlight)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span>2️⃣</span> Practica activamente
-              </h4>
-              <p>Ejecuta, modifica y experimenta con el código.</p>
-            </div>
-            <div>
-              <h4 style={{ color: 'var(--highlight)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span>3️⃣</span> Enfócate en entender
-              </h4>
-              <p>Comprende el <em>por qué</em> las cosas funcionan, no solo el <em>cómo</em>.</p>
-            </div>
-            <div>
-              <h4 style={{ color: 'var(--highlight)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span>4️⃣</span> No te apresures
-              </h4>
-              <p>Las lagunas en los fundamentos se amplificarán después.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Resultados */}
-      <section className="container">
-        <h2>🚀 Lo que Aprenderás</h2>
-        <div className="card">
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            {outcomes.map((outcome, idx) => (
-              <li 
-                key={idx} 
-                style={{ 
-                  padding: '0.75rem 0',
-                  borderBottom: idx < outcomes.length - 1 ? '1px solid var(--border)' : 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.75rem'
-                }}
-              >
-                <span style={{ color: 'var(--success)', fontSize: '1.25rem' }}>✓</span>
-                {outcome}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Requisitos */}
-      <section className="container">
-        <h2>📋 Requisitos Previos</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-          <div className="card">
-            <h4 style={{ color: 'var(--success)', marginTop: 0 }}>✅ Necesarios</h4>
-            <ul>
-              <li>Conocimientos básicos de Python</li>
-              <li>Álgebra de secundaria</li>
-              <li>Ganas de aprender</li>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="mt-0">Objetivos del Curso</h2>
+            <p className="text-lg mb-8">
+              Este curso está diseñado para aquellos que no se conforman con usar modelos, sino que quieren crearlos y entenderlos a nivel de investigación.
+            </p>
+            <ul className="space-y-4">
+              {outcomes.map((outcome, idx) => (
+                <li key={idx} className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-[var(--border)] group hover:border-[var(--success)]/50 transition-colors">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--success)]/20 text-[var(--success)] flex items-center justify-center text-sm">✓</span>
+                  <span className="text-[var(--text-primary)] font-medium">{outcome}</span>
+                </li>
+              ))}
             </ul>
           </div>
-          <div className="card">
-            <h4 style={{ color: 'var(--warning)', marginTop: 0 }}>💡 Recomendados</h4>
-            <ul>
-              <li>Familiaridad con NumPy</li>
-              <li>Conceptos básicos de cálculo</li>
-              <li>Experiencia con Jupyter Notebooks</li>
-            </ul>
+          <div className="relative aspect-square max-w-md mx-auto lg:ml-auto">
+             <div className="absolute inset-0 bg-gradient-to-br from-[var(--highlight)] to-[var(--highlight-secondary)] rounded-3xl rotate-3 opacity-20 blur-2xl animate-pulse"></div>
+             <div className="relative card h-full flex flex-col items-center justify-center p-12 text-center">
+                <Icons.Brain className="w-16 h-16 text-[var(--highlight)] mb-6" />
+                <h3 className="text-3xl mb-4 italic">"De cero a Investigador"</h3>
+                <p className="text-[var(--text-secondary)] text-pretty">Un viaje riguroso pero intuitivo hacia la frontera del conocimiento.</p>
+             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Final */}
-      <section className="container" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
-        <h2 style={{ borderBottom: 'none' }}>¿Listo para comenzar?</h2>
-        <p style={{ fontSize: '1.2rem', maxWidth: '500px', margin: '1rem auto 2rem' }}>
-          Empieza con los fundamentos matemáticos y construye tu camino hacia la investigación en IA.
-        </p>
-        <Link href="/fundamentos-matematicos" className="btn btn-primary">
-          Comenzar con Matemáticas →
-        </Link>
+      <section className="container py-24">
+        <div className="card text-center bg-gradient-to-br from-[var(--secondary)] to-[var(--primary)] border-[var(--highlight)]/30 py-16">
+          <h2 className="mt-0 border-none mb-6">¿Preparado para el desafío?</h2>
+          <p className="text-xl max-w-2xl mx-auto mb-10 text-[var(--text-secondary)]">
+            Comienza hoy mismo con los fundamentos matemáticos y desbloquea el verdadero poder del Deep Learning.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/fundamentos-matematicos" className="btn btn-primary text-lg px-10 py-4">
+              Comenzar ahora →
+            </Link>
+          </div>
+        </div>
       </section>
     </div>
   );
